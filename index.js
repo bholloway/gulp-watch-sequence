@@ -15,22 +15,32 @@ function merge() {
   sequences.forEach(function (sequence) {
 
     // for each element in the sequence
-    var lastMatch = 0;
-    sequence.forEach(function (element) {
+    var lastMatch = -1;
+    sequence.forEach(function (element, i, array) {
+      if (typeof element === 'string') {
 
-      // not found implies insert after the last match
-      //  this insertion is effectively the last match so we need to increment lastMatch anyhow
-      var index = list.indexOf(element);
-      if (index < 0) {
-        results.splice(++lastMatch, 0, element);
+        // not found implies insert after the last match
+        //  this insertion is effectively the last match so we need to increment lastMatch anyhow
+        var index = results.indexOf(element);
+        if (index < 0) {
+          results.splice(++lastMatch, 0, element);
 
         // backtracking is not allowed
-      } else if (index < lastMatch) {
-        throw new Error("The order of elements must be compatible between sequences.")
+        } else if (index < lastMatch) {
+          throw new Error("The order of elements must be compatible between sequences.")
 
         // new match
+        } else {
+          lastMatch = index;
+        }
+      } else if (typeof element === 'function') {
+        if (i < array.length - 1) {
+          throw new Error('Methods are only permitted as the final element in the sequence.')
+        } else if (methods.indexOf(element) < 0) {
+          methods.push(element);
+        }
       } else {
-        lastMatch = index;
+        throw new Error('Elements must be either string or function.')
       }
     })
   })
@@ -66,12 +76,13 @@ module.exports = function(timeout, filter) {
   function enqueue() {
     queue = merge(queue, Array.prototype.slice.call(arguments));
     clearTimeout(timeout);
-    timeout = (queue.length) ? setTimeout(trigger, millseconds) : 0;
+    timeout = (queue.length) ? setTimeout(flush, milliseconds) : 0;
     return queue;
   }
   function flush() {
     var filtered = safeFilter.apply(null, queue) || queue;
     if (filtered.length) {
+      console.log(filtered);
       runSequence.apply(null, filtered);
     }
     queue = [ ];
