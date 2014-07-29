@@ -44,14 +44,17 @@ gulp.task('watch', function () {
 
 ## Reference
 
-### (timeout, handler)
+### (timeout, before)
 
 Get an instance for the given timeout value.
 
 Sequences triggered within the timeout will share the same sequence run, delayed by at most `timeout` milliseconds.
 
+The `before` method may return `void` to execute the pending sequence, or may return a new sequence based upon the
+arguments it was given.
+
 @param {number?} timeout The period to aggregate triggers over in milliseconds
-@param {function?} handler A method to use in place of <code>run-sequence</code>
+@param {function?} filter A method to filter the aggregate sequence directly before it is run
 @returns {{get:function, trigger:function}}
 
 ### .getHandler(...sequence)

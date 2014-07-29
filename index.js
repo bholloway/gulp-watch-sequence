@@ -52,13 +52,16 @@ function merge() {
  * Get an instance for the given timeout value.
  * Sequences triggered within the timeout will share the same sequence run, delayed by at most <code>timeout</code>
  * milliseconds.
+ * The `before` method may return `void` to execute the pending sequence, or may return a new sequence based upon the
+ * arguments it was given.
  * @param {number?} timeout The period to aggregate triggers over in milliseconds
- * @param {function?} handler A method to use in place of <code>run-sequence</code>
+ * @param {function?} filter A method to filter the aggregate sequence directly before it is run
  * @returns {{get:function, trigger:function}}
  */
-module.exports = function(timeout, handler) {
+module.exports = function(timeout, filter) {
   'use strict';
   var milliseconds = Math.max(Number(timeout), 0) || 500;
+  var safeFilter   = (typeof filter === 'function') ? filter : function() {};
   var queue        = [ ];
   function enqueue() {
     queue = merge(queue, Array.prototype.slice.call(arguments));
@@ -67,10 +70,11 @@ module.exports = function(timeout, handler) {
     return queue;
   }
   function flush() {
-    if (queue.length) {
-      (handler || runSequence).apply(null, queue);
-      queue = [ ];
+    var filtered = safeFilter.apply(null, queue) || queue;
+    if (filtered.length) {
+      runSequence.apply(null, filtered);
     }
+    queue = [ ];
   }
   return {
 
