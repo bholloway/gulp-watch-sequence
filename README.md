@@ -57,7 +57,7 @@ arguments it was given.
 
 @param `{function?} filter` A method to filter the aggregate sequence directly before it is run.
 
-@returns `{{get:function, trigger:function}}`
+@returns `{{getHandler:function, enqueue:function, flush:function}}`
 
 ### .getHandler(...)
 

@@ -66,7 +66,7 @@ function merge() {
  * arguments it was given.
  * @param {number?} timeout The period to aggregate triggers over in milliseconds
  * @param {function?} filter A method to filter the aggregate sequence directly before it is run
- * @returns {{get:function, trigger:function}}
+ * @returns {{getHandler:function, enqueue:function, flush:function}}
  */
 module.exports = function(timeout, filter) {
   'use strict';
