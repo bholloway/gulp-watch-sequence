@@ -53,23 +53,27 @@ Sequences triggered within the timeout will share the same sequence run, delayed
 The `before` method may return `void` to execute the pending sequence, or may return a new sequence based upon the
 arguments it was given.
 
-@param {number?} timeout The period to aggregate triggers over in milliseconds
-@param {function?} filter A method to filter the aggregate sequence directly before it is run
-@returns {{get:function, trigger:function}}
+@param `{number?} timeout` The period to aggregate triggers over in milliseconds.
+
+@param `{function?} filter` A method to filter the aggregate sequence directly before it is run.
+
+@returns `{{get:function, trigger:function}}`
 
 ### .getHandler(...sequence)
 
 Get a `gulp-watch` handler for the given sequence.
 
-@param {...string} A sequence of gulp tasks to run
-@return {function} A <code>gulp-watch</code> handler method that will enqueue the given sequence
+@param `{...string}` A sequence of gulp tasks to run.
+
+@return `{function}` A <code>gulp-watch</code> handler method that will enqueue the given sequence.
 
 ### .enqueue(...sequence)
 
 Manually enqueue the given sequence of gulp tasks, possibly including `done` callback.
 
-@param {...string|function} A sequence of gulp tasks to run, with optional trailing callback
-@returns {array.<string|function} The current value of the aggregate sequence
+@param `{...string|function}` A sequence of gulp tasks to run, with optional trailing callback.
+
+@returns `{array.<string|function}` The current value of the aggregate sequence.
 
 ### .flush()
 
