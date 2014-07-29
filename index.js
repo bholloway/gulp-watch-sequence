@@ -82,7 +82,6 @@ module.exports = function(timeout, filter) {
   function flush() {
     var filtered = safeFilter.apply(null, queue) || queue;
     if (filtered.length) {
-      console.log(filtered);
       runSequence.apply(null, filtered);
     }
     queue = [ ];
