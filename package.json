@@ -1,0 +1,27 @@
+{
+  "name": "gulp-slash",
+  "version": "1.1.2",
+  "description": "Merge the actions of multiple watch triggers into a single common sequence.",
+  "keywords": [
+    "gulpplugin",
+    "slash",
+    "sequence",
+    "watch",
+    "consolidate",
+    "merge"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bholloway/gulp-slash"
+  },
+  "author": "Ben Holloway",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bholloway/gulp-slash/issues"
+  },
+  "homepage": "https://github.com/bholloway/gulp-slash",
+  "main": "index.js",
+  "dependencies": {
+    "run-sequence": "latest"
+  }
+}
