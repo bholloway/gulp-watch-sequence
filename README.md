@@ -59,7 +59,7 @@ arguments it was given.
 
 @returns `{{get:function, trigger:function}}`
 
-### .getHandler(...sequence)
+### .getHandler(...)
 
 Get a `gulp-watch` handler for the given sequence.
 
@@ -67,7 +67,7 @@ Get a `gulp-watch` handler for the given sequence.
 
 @return `{function}` A <code>gulp-watch</code> handler method that will enqueue the given sequence.
 
-### .enqueue(...sequence)
+### .enqueue(...)
 
 Manually enqueue the given sequence of gulp tasks, possibly including `done` callback.
 
