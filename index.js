@@ -95,8 +95,11 @@ module.exports = function(timeout, filter) {
      */
     getHandler: function () {
       var sequence = Array.prototype.slice.call(arguments);
-      return function(files, done) {
-        enqueue.apply(null, sequence.concat(done));
+      return function (files, done) {
+        if (typeof done === 'function' || typeof done === 'string') {
+          sequence = sequence.concat(done);
+        }
+        enqueue.apply(null, sequence);
       }
     },
 
