@@ -95,8 +95,18 @@ module.exports = function(timeout, filter) {
      */
     getHandler: function () {
       var sequence = Array.prototype.slice.call(arguments);
-      return function(files, done) {
-        enqueue.apply(null, sequence.concat(done));
+      return function (files, done) {
+        if (typeof done === 'function') {
+          // done may be a function as a result of using gulp-batch.
+          // see https://github.com/floatdrop/gulp-watch/blob/v1.0.7/index.js#L37
+          sequence = sequence.concat(done);
+        }
+        else if (typeof done === 'string') {
+          // sequence's last member can be the name of a registered gulp task
+          // so we can be nice and let it through at this point.
+          sequence = sequence.concat(done);
+        }
+        enqueue.apply(null, sequence);
       }
     },
 
