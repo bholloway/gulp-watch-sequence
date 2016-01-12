@@ -1,6 +1,6 @@
 {
   "name": "gulp-watch-sequence",
-  "version": "0.0.4",
+  "version": "1.0.0",
   "description": "Merge the actions of multiple watch triggers into a single common sequence.",
   "keywords": [
     "gulpplugin",
