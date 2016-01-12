@@ -1,14 +1,8 @@
 # gulp-watch-sequence
 
-> Merge the actions of multiple watch triggers into a single common sequence.
+[![NPM](https://nodei.co/npm/gulp-watch-sequence.png)](http://github.com/bholloway/gulp-watch-sequence)
 
-## Install
-
-Install with [npm](https://npmjs.org/package/gulp-watch-sequence).
-
-```
-npm install --save-dev gulp-watch-sequence
-```
+Merge the actions of multiple watch triggers into a single common sequence.
 
 ## Usage
 
@@ -21,23 +15,21 @@ Both will fire the different handlers that we have obtained for them and be merg
 300 milliseconds following.
 
 ```js
-var gulp = require('gulp');
-var watch = require('gulp-watch');
-var sequence = require('gulp-watch-sequence');
+var gulp     = require('gulp'),
+    watch    = require('gulp-watch'),
+    sequence = require('gulp-watch-sequence');
 
 gulp.task('watch', function () {
   var queue = sequence(300);
 
-  watch({
-    name: 'JS',
-    emitOnGlob: false,
-    glob: 'src/**/*.js'
+  watch('src/**/*.js', {
+    name      : 'JS',
+    emitOnGlob: false
   }, queue.getHandler('js', 'html', 'reload'));
 
-  watch({
-    name: 'CSS',
-    emitOnGlob: false,
-    glob: 'scss/**/*.scss'
+  watch('scss/**/*.scss', {
+    name      : 'CSS',
+    emitOnGlob: false
   }, queue.getHandler('css', 'html', 'reload'));
 });
 ```
